@@ -17,51 +17,74 @@ var seattlecenter = new Cookies('Seattle Center',11,38,3.7);
 var capitolhill = new Cookies('Capitol Hill',20,38,2.3);
 var alki = new Cookies('Alki',2,16,4.6);
 
-var stores = [firstandpike, seatac, seattlecenter, capitolhill, alki];    
+var myTable = document.getElementById('Sales-Table');
+var tr = createRow(1);
+createColumn('th','Location',tr);
 
-  var StoreList = document.getElementById('store-sales');
+for (var i=6; i<=19;i++) {  
+  var time = (i < 12) ? i + ' am' : (i==12) ? i + ' pm' :  (i-12) + ' pm';
+  createColumn('th',time,tr);   
+}
+
+createColumn('th','Daily Location Total',tr);
+myTable.appendChild(tr);
+
+let rows = new Array(13);
+var stores = [firstandpike, seatac, seattlecenter, capitolhill, alki];    
+  
   var storetime;
   var numCust;
   var numCookies;
   var storeCount =0;
-    while (storeCount < stores.length) {
 
+  for (var i = 6; i <= 19; i++)
+        rows[i-6]=0;  
+
+  while (storeCount < stores.length) {
     var totCookies = 0;
-
-    var liEl = document.createElement('li');
-
-    liEl.textContent = 'Store Name : ' + stores[storeCount].name;
+    var tr = createRow(0);
+    createColumn('td',stores[storeCount].name,tr);    
     
-    StoreList.appendChild(liEl);
-
-  for (var i = 6; i <= 21; i++) {  
-    if (i < 12) {
-        storetime = i + ' am' } 
-    else if (i===12) {
-        storetime = i + ' pm' 
-    }
-    else if (i > 12) {
-        storetime = (i-12) + ' pm' 
-    }
-
-
-    var liEl = document.createElement('li');
-
+  for (var i = 6; i <= 19; i++)
+   {    
+    
+    var storetime = (i < 12) ? i + ' am' : (i==12) ? i + ' pm' :  (i-12) + ' pm';    
     numCust = stores[storeCount].getCustCount(stores[storeCount].minNumCust,stores[storeCount].maxNumCust);
-    numCookies = Math.ceil(numCust * stores[storeCount].avgCookieSale);
-    liEl.textContent = storetime + ": " + numCookies + " Cookies" ;
-    
-
-    StoreList.appendChild(liEl);
-   
+    numCookies = Math.ceil(numCust * stores[storeCount].avgCookieSale);                      
     totCookies = totCookies + numCookies;
+    createColumn('td',numCookies,tr); 
+    rows[i-6]+= parseInt(numCookies);
   }
+    createColumn('td',totCookies,tr);    
+    myTable.appendChild(tr);
 
-  liEl.textContent = "Total : " + totCookies + " Cookies"; 
-  StoreList.appendChild(liEl);
- 
   storeCount = storeCount + 1;
 }
+
+var tr = createRow(0);
+createColumn('td','Total',tr);    
+
+for (i=0; i<rows.length;i++) { 
+    createColumn('td',rows[i],tr);          
+}
+myTable.appendChild(tr);
+
+function createRow(flag) {
+  var tr = document.createElement('tr');
+  tr.style.border="2px solid black";
+  if(flag)
+  tr.style.backgroundColor='grey';
+  return tr;
+};
+
+function createColumn(columnType,nodeText,rowRef) {
+  var col = document.createElement(columnType);  
+  col.style.border="2px solid black";  
+  col.style.textAlign="left";   
+  var data = document.createTextNode(nodeText); 
+  col.appendChild(data)
+  rowRef.appendChild(col);
+};
 
 
 
