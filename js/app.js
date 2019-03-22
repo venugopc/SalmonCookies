@@ -16,23 +16,12 @@ var seatac = new Cookies('SeaTac Airport',3,24,1.2);
 var seattlecenter = new Cookies('Seattle Center',11,38,3.7);
 var capitolhill = new Cookies('Capitol Hill',20,38,2.3);
 var alki = new Cookies('Alki',2,16,4.6);
+let rows = new Array(13);
+var stores = [firstandpike, seatac, seattlecenter, capitolhill, alki];  
 
 var myTable = document.getElementById('Sales-Table');
-var tr = createRow(1);
-createColumn('th','Location',tr);
+createHeaderOrFooter(1,'th','Location','Daily Location Total',rows,6,19);
 
-for (var i=6; i<=19;i++) {  
-  var time = (i < 12) ? i + ' am' : (i==12) ? i + ' pm' :  (i-12) + ' pm';
-  createColumn('th',time,tr);   
-}
-
-createColumn('th','Daily Location Total',tr);
-myTable.appendChild(tr);
-
-let rows = new Array(13);
-var stores = [firstandpike, seatac, seattlecenter, capitolhill, alki];    
-  
-  var storetime;
   var numCust;
   var numCookies;
   var storeCount =0;
@@ -45,29 +34,35 @@ var stores = [firstandpike, seatac, seattlecenter, capitolhill, alki];
     var tr = createRow(0);
     createColumn('td',stores[storeCount].name,tr);    
     
-  for (var i = 6; i <= 19; i++)
-   {    
-    
-    var storetime = (i < 12) ? i + ' am' : (i==12) ? i + ' pm' :  (i-12) + ' pm';    
+  for (var j = 6; j <= 19; j++)
+   {              
     numCust = stores[storeCount].getCustCount(stores[storeCount].minNumCust,stores[storeCount].maxNumCust);
     numCookies = Math.ceil(numCust * stores[storeCount].avgCookieSale);                      
     totCookies = totCookies + numCookies;
     createColumn('td',numCookies,tr); 
-    rows[i-6]+= parseInt(numCookies);
+    rows[j-6]+= parseInt(numCookies);
   }
     createColumn('td',totCookies,tr);    
     myTable.appendChild(tr);
 
   storeCount = storeCount + 1;
 }
+createHeaderOrFooter(0,'td','Total',' ',rows,0,rows.length-1); 
 
-var tr = createRow(0);
-createColumn('td','Total',tr);    
-
-for (i=0; i<rows.length;i++) { 
-    createColumn('td',rows[i],tr);          
-}
-myTable.appendChild(tr);
+function createHeaderOrFooter(rowType,headerType,firstColumnHeader,lastColumnHeader,dataArray,startIndex,endIndex){    
+  var tr = createRow(rowType);
+  createColumn(headerType,firstColumnHeader,tr);  
+  for (var i=startIndex; i<=endIndex;i++) {  
+    if (rowType) {
+    var time = (i < 12) ? i + ' am' : (i==12) ? i + ' pm' :  (i-12) + ' pm';
+    createColumn(headerType,time,tr);   
+    } else  {
+    createColumn(headerType,dataArray[i],tr);          
+    }      
+  }
+  createColumn(headerType,lastColumnHeader,tr);   
+  myTable.appendChild(tr);    
+};
 
 function createRow(flag) {
   var tr = document.createElement('tr');
@@ -77,7 +72,7 @@ function createRow(flag) {
   return tr;
 };
 
-function createColumn(columnType,nodeText,rowRef) {
+function createColumn(columnType,nodeText,rowRef) {  
   var col = document.createElement(columnType);  
   col.style.border="2px solid black";  
   col.style.textAlign="left";   
@@ -85,6 +80,8 @@ function createColumn(columnType,nodeText,rowRef) {
   col.appendChild(data)
   rowRef.appendChild(col);
 };
+
+
 
 
 
