@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+        <title>Forms and Events Demo</title>
+    </head>
+    <body>
+        <header>
+            <section>
+                <h1>Add Stores</h1>
+                <img src="img/Salmon.png" height="55" width="300">
+
+                <nav>
+                    <ul>                            
+                        <li><a href="addStores.html">Home</a></li>
+                        <li><a href="sales.html">Sales</a></li>
+                        <li><a href="index.html">Salmon</a></li>                       
+                    </ul>
+                </nav>
+            </section>
+        </header>          
+        <form id="sample_form">
+            <table>
+                <tr>
+                <fieldset>
+                    <td><label for="storeName">Store Name:</label></td>
+                    <td><input type="text" name="storeName" placeholder="enter store name" minLength="4" required></td>
+                </fieldset>
+                </tr>
+                <tr>
+                <fieldset>
+                    <td><label for="minCust">Minimum Num Of Cutomers:</label></td>
+                    <td><input type="text" name="minCust" placeholder="enter minimum number of customers" minLength="1" required></td>
+                </fieldset>
+                </tr>
+                <tr>
+                <fieldset>
+                    <td><label for="maxCust">Maximum Num Of Customers:</label></td>
+                    <td><input type="text" name="maxCust" placeholder="enter maximum number of customers" minLength="1" required></td>
+                </fieldset>
+                </tr>
+                <tr>
+                <fieldset>
+                    <td><label for="avgCust">Average Num Of Customers:</label></td>
+                    <td><input type="text" name="avgCust" placeholder="enter average number of customers" minLength="1" required></td>
+                </fieldset>  
+                </tr> 
+            </table>
+                <br>            
+                <button id="submit_btn" type="submit">Add Store</button>
+            </form>
+            <br>
+            <section>
+                <table style="border:2px solid black;font-family: Verdana, Geneva, Tahoma, sans-serif;" width="100%">
+                    <thead style="background-color: lightgray">                            
+                        <th style="border:2px solid black" align="left">Store Name</th>
+                        <th style="border:2px solid black" align="left">#Min Cust</th>
+                        <th style="border:2px solid black" align="left">#Max Cust</th>
+                        <th style="border:2px solid black" align="left">#Avg Cust</th>    
+                        <th style="border:2px solid black" align="left">6 AM</th>
+                        <th style="border:2px solid black" align="left">7 AM</th>
+                        <th style="border:2px solid black" align="left">8 AM</th>
+                        <th style="border:2px solid black" align="left">9 AM</th>
+                        <th style="border:2px solid black" align="left">10 AM</th>
+                        <th style="border:2px solid black" align="left">11 AM</th>
+                        <th style="border:2px solid black" align="left">12 PM</th>
+                        <th style="border:2px solid black" align="left">1 PM</th>
+                        <th style="border:2px solid black" align="left">2 PM</th>
+                        <th style="border:2px solid black" align="left">3 PM</th>
+                        <th style="border:2px solid black" align="left">4 PM</th>
+                        <th style="border:2px solid black" align="left">5 PM</th>                                            
+                        <th style="border:2px solid black" align="left">6 PM</th>
+                        <th style="border:2px solid black" align="left">7 PM</th>
+                        <th style="border:2px solid black" align="left">Daily Location Total</th>
+                    </thead>
+                    <tbody id="store_table">      
+                        </tbody>   
+                            <tfoot id="footer">
+
+                            </tfoot>   
+                </table>
+            </section>
+            <script src="js/addstore.js"></script>    
+         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>              
+         <footer></footer> 
+    </body>
+</html>
